@@ -2,7 +2,7 @@
 
 Live app: https://movie-recommender-system-epv7fyskqjexburnquebrh.streamlit.app
 
-CinePulse is a movie recommender web app I built using the TMDB 5000 movies dataset. You pick any movie from the list of 4,806 films, click Recommend, and it finds the 5 closest movies based on plot, genres, keywords, cast, and director, along with their posters.
+CinePulse is a movie recommender web app I built using the TMDB 5000 movies dataset. You pick any movie from the list of 5,000 films, click Recommend, and it finds the 5 closest movies based on plot, genres, keywords, cast, and director, along with their posters.
 
 ## Tech Stack
 
