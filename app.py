@@ -22,31 +22,8 @@ st.markdown(
 <style>
 .block-container {
     max-width: 1140px;
-    padding-top: 1.4rem;
+    padding-top: 3.4rem;
     padding-bottom: 3rem;
-}
-.brand-logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 0.5rem;
-}
-.brand-mark {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: #e50914;
-    color: #ffffff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-}
-.brand-name {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    color: #ffffff;
 }
 .movie-title {
     font-size: 0.92rem;
@@ -61,11 +38,16 @@ st.markdown(
     overflow: hidden;
 }
 </style>
-<div class="brand-logo">
-  <span class="brand-mark">🎬</span>
-  <span class="brand-name">CinePulse</span>
-</div>
 """,
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    "<div style='display:flex;align-items:center;gap:10px;margin:0 0 14px 0;'>"
+    "<span style='display:inline-flex;align-items:center;justify-content:center;"
+    "width:34px;height:34px;border-radius:8px;background:#e50914;color:#ffffff;font-size:17px;'>🎬</span>"
+    "<span style='font-size:30px;font-weight:800;letter-spacing:0.03em;color:#ffffff;'>CinePulse</span>"
+    "</div>",
     unsafe_allow_html=True,
 )
 
@@ -142,6 +124,10 @@ if hero_slides:
             border: 1px solid rgba(255,255,255,0.12);
             background: #141720;
           }}
+          #slides {{
+            position: absolute;
+            inset: 0;
+          }}
           .slide {{
             position: absolute;
             inset: 0;
@@ -158,7 +144,8 @@ if hero_slides:
           .scrim {{
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(14,17,23,0.9) 0%, rgba(14,17,23,0.25) 55%, transparent 100%);
+            background: linear-gradient(to top, rgba(14,17,23,0.92) 0%, rgba(14,17,23,0.28) 55%, transparent 100%);
+            z-index: 2;
           }}
           .overlay {{
             position: absolute;
@@ -168,11 +155,12 @@ if hero_slides:
             display: flex;
             align-items: center;
             justify-content: space-between;
+            z-index: 3;
           }}
           .caption {{
-            color: #e4e4e7;
-            font-size: 15px;
-            font-weight: 500;
+            color: #f4f4f5;
+            font-size: 16px;
+            font-weight: 600;
           }}
           .dots {{
             display: flex;
@@ -190,7 +178,8 @@ if hero_slides:
             background: #ffffff;
           }}
         </style>
-        <div class="hero" id="hero">
+        <div class="hero">
+          <div id="slides"></div>
           <div class="scrim"></div>
           <div class="overlay">
             <div class="caption" id="caption"></div>
@@ -199,7 +188,7 @@ if hero_slides:
         </div>
         <script>
           const slides = {slides_json};
-          const hero = document.getElementById("hero");
+          const slidesWrap = document.getElementById("slides");
           const caption = document.getElementById("caption");
           const dotsWrap = document.getElementById("dots");
 
@@ -210,14 +199,14 @@ if hero_slides:
             img.src = s.image;
             img.alt = s.title;
             div.appendChild(img);
-            hero.insertBefore(div, hero.firstChild);
+            slidesWrap.appendChild(div);
 
             const dot = document.createElement("div");
             dot.className = "dot" + (i === 0 ? " active" : "");
             dotsWrap.appendChild(dot);
           }});
 
-          const slideEls = hero.querySelectorAll(".slide");
+          const slideEls = slidesWrap.querySelectorAll(".slide");
           const dotEls = dotsWrap.querySelectorAll(".dot");
           let idx = 0;
           caption.textContent = slides[0].title;
